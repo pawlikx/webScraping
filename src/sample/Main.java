@@ -32,7 +32,7 @@ public class Main extends Application {
         COLORS ANF FONTS FOR GUI COMPONENTS
      */
     private final static Color WHITE = Color.WHITE;
-    private final static Color MY_NAVY = Color.rgb(82,59, 156);
+    private final static Color MY_NAVY = Color.rgb(82, 59, 156);
     private Font logoFont = Font.font("Candara", FontWeight.EXTRA_BOLD, 45);
     private Font mainFont = Font.font("Candara", FontWeight.EXTRA_BOLD, 16);
     private Font radioButtonFont = Font.font("Candara", FontWeight.EXTRA_BOLD, 15);
@@ -76,15 +76,17 @@ public class Main extends Application {
         DOWNLOAD BUTTON
      */
     private Button downloadStartButton;
+    private Alert alertMessage;
     /*
         INFO BUTTON
      */
     private Button infoButton;
+
     /**
-     *  METHOD TO START JAVAFX VIEW
+     * METHOD TO START JAVAFX VIEW
      */
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         /*
             SETTINGS FOR GRIDPANE
          */
@@ -92,7 +94,7 @@ public class Main extends Application {
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setHgap(100);
         gridPane.setVgap(50);
-        gridPane.setPadding(new Insets(25,25,25,25));
+        gridPane.setPadding(new Insets(25, 25, 25, 25));
 
         //=========================================LOGO APP==========================================================
         /*
@@ -172,9 +174,9 @@ public class Main extends Application {
             public void handle(ActionEvent event) {
                 directoryChooser = new DirectoryChooser();
                 selectedDirectory = directoryChooser.showDialog(primaryStage);
-                if(selectedDirectory == null){
+                if (selectedDirectory == null) {
                     pathTextField.setText("Nie wybrano folderu");
-                }else{
+                } else {
                     pathTextField.setText(selectedDirectory.getAbsolutePath());
                 }
             }
@@ -245,14 +247,30 @@ public class Main extends Application {
             @Override
             public void handle(ActionEvent event) {
                 //SPRAWDZENIE CZY TEXTFIELD OD NICKU UŻYTKOWNIKA NIE JEST PUSTY
-                if(validateInputNickTextField() == true){
-                    //TUTAJ CALEP OBIERANIE DANYCH
-                    if(downloadPhotosButton.isSelected()){
-                        //RADIO BUTTON OD ZDJĘ i VIDEO
+                if (validateInputNickTextField() == true) {
+                    if(validateInputPathDirectoryTextField() == true) {
+                        //TUTAJ CALEP OBIERANIE DANYCH
+                        if (downloadPhotosButton.isSelected()) {
+                            //RADIO BUTTON OD ZDJĘ i VIDEO
+                        }
+                        if (downloadTagsButton.isSelected()) {
+                            //RADIO BUTTON OD TAGÓW
+                        }
                     }
-                    if(downloadTagsButton.isSelected()){
-                        //RADIO BUTTON OD TAGÓW
+                    else{
+                        alertMessage = new Alert(Alert.AlertType.ERROR);
+                        alertMessage.setTitle("Błąd!");
+                        alertMessage.setHeaderText(null);
+                        alertMessage.setContentText("Nie wybrano folderu dla pobieranych danych!");
+                        alertMessage.showAndWait();
                     }
+                }
+                else{
+                    alertMessage = new Alert(Alert.AlertType.ERROR);
+                    alertMessage.setTitle("Błąd!");
+                    alertMessage.setHeaderText(null);
+                    alertMessage.setContentText("Nie wybrano nicku użytkownika!");
+                    alertMessage.showAndWait();
                 }
 
             }
@@ -272,6 +290,7 @@ public class Main extends Application {
             }
         });
 
+
         //=========================================GRID PANE ALIGNMENTS==========================================================
         GridPane.setHalignment(logoApp, HPos.CENTER);
         GridPane.setValignment(logoApp, VPos.CENTER);
@@ -285,7 +304,7 @@ public class Main extends Application {
         GridPane.setValignment(infoButton, VPos.CENTER);
         gridPane.setBackground(Background.EMPTY);
         gridPane.add(logoApp, 0, 0, 2, 1);
-        gridPane.add(specifyDownloadBox, 0,1);
+        gridPane.add(specifyDownloadBox, 0, 1);
         gridPane.add(choosePhotoVideoBox, 1, 1);
         gridPane.add(downloadStartButton, 0, 2, 2, 1);
         gridPane.add(infoButton, 1, 2, 1, 1);
@@ -294,12 +313,12 @@ public class Main extends Application {
             COLORS FOR BACKGROUND
          */
         Stop[] stops = new Stop[]{
-                new Stop(0, Color.rgb(255,242, 0)),
-                new Stop(0.2,  Color.rgb(255,128, 0)),
-                new Stop(0.4,  Color.rgb(250,74, 31)),
-                new Stop(0.6,  Color.rgb(206,42, 93)),
-                new Stop(0.8,  Color.rgb(167,61, 155)),
-                new Stop(1,  Color.rgb(82,59, 156))};
+                new Stop(0, Color.rgb(255, 242, 0)),
+                new Stop(0.2, Color.rgb(255, 128, 0)),
+                new Stop(0.4, Color.rgb(250, 74, 31)),
+                new Stop(0.6, Color.rgb(206, 42, 93)),
+                new Stop(0.8, Color.rgb(167, 61, 155)),
+                new Stop(1, Color.rgb(82, 59, 156))};
         /*
             GRADIENT FOR BACKGROUND
          */
@@ -319,13 +338,26 @@ public class Main extends Application {
     }
 
     /**
-     * METHOD FOR VALIDATE INPUT FOR NICK TEXT FIELD
+     * METHOD FOR VALIDATE INPUT NICK TEXT FIELD
+     *
      * @return TRUE IF TEXT FIELD IS NOT NULL AND NOT EMPTY
      */
-    public boolean validateInputNickTextField(){
+    public boolean validateInputNickTextField() {
         Boolean entry = false;
-        if(nickTextField.getText()!= null && !nickTextField.getText().isEmpty()){
-            return true;
+        if (nickTextField.getText() != null && !nickTextField.getText().isEmpty()) {
+            entry = true;
+        }
+        return entry;
+    }
+    /**
+     * METHOD FOR VALIDATE DIRECTORY PATH TEXT FIELD
+     *
+     * @return TRUE IF TEXT FIELD IS NOT NULL AND NOT EMPTY AND NOT EQUALS "Nie wybrano folderu"
+     */
+    public boolean validateInputPathDirectoryTextField(){
+        Boolean entry = false;
+        if(pathTextField.getText() != null && !pathTextField.getText().isEmpty() && !pathTextField.getText().equals("Nie wybrano folderu")){
+            entry = true;
         }
         return entry;
     }
