@@ -2,7 +2,7 @@
 ![instascraper main](https://user-images.githubusercontent.com/15147818/41120998-83a5b472-6a97-11e8-824a-76a486d78dac.PNG)
 ![instascraper info](https://user-images.githubusercontent.com/15147818/41120332-8330b8a4-6a95-11e8-8490-69d68544cd08.PNG)
 
-## Overwiev
+## Overview
 Implementation of downloading photos from Instagram in HD.
 
 ## Description
