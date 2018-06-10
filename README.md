@@ -6,7 +6,12 @@
 Implementation of downloading photos from Instagram in HD.
 
 ## Description
-Project includes Java application for downloading photos and JavaFX GUI. Attention! This project needs Chrome browser and Chrome WebDriver!
+Project includes Java application for downloading photos and JavaFX GUI. 
+
+**Attention!**
+- This project needs Chrome browser and Chrome WebDriver!
+- If you want only GUI, see: [InstaScraperGUI](https://github.com/SideCut13/InstaScraperGUI)
+- More info about project (in polish language): [Documentation](https://github.com/pawlikx/webScraping/blob/master/InstaScraper%20-%20dokumentacja.pdf)
 
 ## IDE
 - IntelliJ IDEA 2018.1.4
