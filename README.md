@@ -1,1 +1,1 @@
-# InstaScraperGUI
+# InstaScraper
